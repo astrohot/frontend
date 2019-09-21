@@ -1,15 +1,15 @@
 import React, { Component } from 'react'
 
-class User extends Component {
+class Profile extends Component {
   render() {
     return (
       <div>
         <div>
-          <p>{this.props.user.name} ({this.props.user.email})</p>
+          <p>{this.props.profile.name} ({this.props.profile.email})</p>
         </div>
       </div>
     )
   }
 }
 
-export default User
+export default Profile

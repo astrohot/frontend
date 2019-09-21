@@ -2,18 +2,21 @@ import React, { Component } from 'react'
 import { Query } from 'react-apollo'
 import gql from 'graphql-tag'
 
-import User from './User'
+import Profile from './Profile'
 
 const USERS_QUERY = gql`
   query {
-    users {
-      id
+    profiles {
+      profileID
+      uid
       name
       email
+      description
+      birthDate
     }
   }
 `
-class UserList extends Component {
+class ProfileList extends Component {
   render() {
     return (
       <Query query={ USERS_QUERY }>
@@ -24,7 +27,7 @@ class UserList extends Component {
 
             return (
               <div>
-                { data.users.map(user => <User key={user.id} user={user} />) }
+                { data.profiles.map(profile => <Profile key={profile.profileID} profile={profile} />) }
               </div>
             )
           }
@@ -34,4 +37,4 @@ class UserList extends Component {
   }
 }
 
-export default UserList
+export default ProfileList

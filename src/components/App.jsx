@@ -1,13 +1,13 @@
 import React from 'react'
 import '../styles/App.css'
 
-import UserList from './UserList'
+import ProfileList from './ProfileList'
 
 function App() {
   return (
     <div className="App"> 
-      <UserList />
-    </div> 
+      <ProfileList />
+    </div>
   )
 }
 
