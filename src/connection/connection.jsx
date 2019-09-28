@@ -26,7 +26,7 @@ class Connection extends Component {
                 <Content> 
                     <Tabs> 
                         <TabsHeader> 
-                            <TabHeader label='Curtidas' icon='thumbs-up' target='tabLike' />
+                            <TabHeader label='Combinações (Todas)' icon='heart-o' target='tabLike' />
                             <TabHeader label='Combinações (Paraíso Astral)' icon='sun-o' target='tabLikely' />
                             <TabHeader label='Combinações (Inferno Astral)' icon='star-half-o' target='tabUnlikely' />
                         </TabsHeader> 

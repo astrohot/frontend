@@ -73,7 +73,7 @@ function submit(query, variables, func_name) {
                     { type: USER_FETCHED, payload: data[func_name] }
                 ])
             })
-            .catch(( { response: { data: { errors } } } ) => {
+            .catch(({ response: { data: { errors } } }) => {
                 errors.forEach(( { message } ) => toastr.error('Erro', message))
             })
     }
