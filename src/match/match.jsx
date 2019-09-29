@@ -9,68 +9,39 @@ import Row from '../common/layout/row'
 
 
 import { makeLike, makeDislike, getConnections, getPerson } from './matchActions'
+import { bindActionCreators } from 'redux'
+import { connect } from 'react-redux'
 
-export default class Match extends Component {
+class Match extends Component {
 
     constructor(props) {
         super(props)
-        this.state = {
-            connections: {
-                likes: 0,
-                unlikely_matches: 0,
-                likely_matches: 0
-            },
-            person: {
-                _id: '0',
-                hellOrHeaven: 'aqua',
-                name: 'Anabelle Green',
-                age: 24,
-                sign: 'Leão'
-            }
-        }
 
         this.handleLike = this.handleLike.bind(this)
         this.handleDislike = this.handleDislike.bind(this)
     }
 
     handleLike() {
-        var _id = '1'
-
         // Chamar api de like
-        makeLike(_id)
-
-        var connections = getConnections(_id)
-        var person = getPerson(_id)
-        this.setState({
-            ...this.state,
-            connections,
-            person
-        })
+        makeLike()
+        //this.props.getConnections()
+        this.props.getPerson()
     }
 
     handleDislike() {
-        var _id = '1'
-
         // Chamar api de dislike
-        makeDislike(_id)
-
-        var connections = getConnections(_id)
-        var person = getPerson(_id)
-        this.setState({
-            ...this.state,
-            connections,
-            person
-        })
+        makeDislike()
+        //this.props.getConnections()
+        this.props.getPerson()
     }
 
     componentWillMount() {
-        this.setState({
-            ...this.state
-        })
+        //this.props.getConnections()
+        this.props.getPerson()
     }
 
     render() {
-        const { connections, person } = this.state
+        const { connections, person } = this.props
         return (
             <div>
                 <ContentHeader title='AstroHot ' small='Conexões' />
@@ -85,12 +56,13 @@ export default class Match extends Component {
                     </Row>
                     <Row>
                         <Grid cols='3 3 3 3'></Grid>
-                        <Grid cols='6 6 6 6'>                     
+                        <Grid cols='6 6 6 6'>                 
                             <MatchBox
                                 hellOrHeaven={person.hellOrHeaven}
                                 name={person.name}
                                 age={person.age}
                                 sign={person.sign}
+                                image={person.image}
                                 like={this.handleLike}
                                 dislike={this.handleDislike}/>                            
                         </Grid>
@@ -101,3 +73,10 @@ export default class Match extends Component {
         )
     }
 }
+
+const mapStateToProps = state => ({
+    connections: state.match.connections,
+    person: state.match.person 
+})
+const mapDispatchToProps = dispatch => bindActionCreators({ makeLike, makeDislike, getConnections, getPerson }, dispatch)
+export default connect(mapStateToProps, mapDispatchToProps)(Match)

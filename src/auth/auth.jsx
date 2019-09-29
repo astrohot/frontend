@@ -38,6 +38,9 @@ class Auth extends Component {
                             placeholder="Nome" icon='user' hide={loginMode} />
                         <Field component={Input} type="email" name="email"
                             placeholder="E-mail" icon='envelope' />
+                        <Field component={Input} type="date" name="birth"
+                            placeholder="Data de Nascimento (YYYY-MM-DD)" icon='calendar'
+                            hide={loginMode}/>
                         <Field component={Input} type="password" name="password"
                             placeholder="Senha" icon='lock' />
                         <Field component={Input} type="password" name="confirm_password"

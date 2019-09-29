@@ -1,6 +1,13 @@
-export function getConnections(_id) {
+import { toastr } from 'react-redux-toastr'
+import axios from 'axios'
+import consts from '../consts'
+
+export const CONNECTION_FETCHED = "CONNECTION_FETCHED"
+export const PERSON_FETCHED = "PERSON_FETCHED"
+
+export function getConnections() {
     var db = {
-        type: 'CONNECTION_FETCHED',
+        type: CONNECTION_FETCHED,
         payload: {
             connections: {
                 likes: 1,
@@ -12,20 +19,39 @@ export function getConnections(_id) {
     return db.payload.connections
 }
 
-export function getPerson(_id) {
-    var db = {
-        type: 'PERSON_FETCHED',
-        payload: {
-            person: {
-                _id: '1',
-                hellOrHeaven: 'red',
-                name: 'Elisabeth Pierce',
-                age: 27,
-                sign: 'Touro'
+export function getPerson() {
+
+    const query = `
+        query getUsers($limit: Int!) {
+            getUsers(limit: $limit) {
+                id
+                name
+                sign
+                birth
             }
         }
+    `
+
+    const variables = {
+        limit: 1
     }
-    return db.payload.person
+
+    return dispatch => {
+        axios.post(consts.API_URL, { query, variables }, { headers:{ 'Content-Type': 'application/json' } })
+            .then(( { data: { data, errors } } ) => {
+                if (errors) {
+                    errors.forEach(( { message } ) => toastr.error('Erro', message))
+                    return
+                }
+
+                dispatch([
+                    { type: PERSON_FETCHED, payload: data['getUsers'][0] }
+                ])
+            })
+            .catch(({ response: { data: { errors } } }) => {
+                errors.forEach(( { message } ) => toastr.error('Erro', message))
+            })
+    }
 }
 
 export function makeLike(_id, crushId) {

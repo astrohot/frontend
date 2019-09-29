@@ -12,6 +12,8 @@ export function login(values) {
                 id
                 email
                 name
+                sign
+                birth
                 token { 
                     value
                     isValid
@@ -37,6 +39,8 @@ export function signup(values) {
                 id
                 email
                 name
+                sign
+                birth
                 token { 
                     value
                     isValid
@@ -50,8 +54,7 @@ export function signup(values) {
             name: values.name,
             email: values.email,
             password: values.password,
-            description: "no description",
-            birth: "00/00/00"
+            birth: `${values.birth}T00:00:00+00:00`
         }
     }
 

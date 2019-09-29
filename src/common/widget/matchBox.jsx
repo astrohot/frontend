@@ -9,7 +9,7 @@ export default props => {
                 <h5 className="widget-user-desc">{props.age} anos</h5>
             </div>
             <div className="widget-user-image">
-                <img className="img-circle" src="http://lorempixel.com/160/160/abstract" alt="User Avatar" />
+                <img className="img-circle" src={props.image} alt="User Avatar" />
             </div>
             <div className="box-footer">
                 <div className="row">
