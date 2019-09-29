@@ -44,8 +44,6 @@ export default function(state = INITIAL_STATE, action) {
                     Math.floor(Math.random() * consts.IMAGES.length)
                 ]
             }
-
-            console.log(image)
             
             return {
                 ...state,
