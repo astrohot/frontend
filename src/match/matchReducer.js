@@ -1,5 +1,10 @@
 import consts from '../consts'
-import { CONNECTION_FETCHED, PERSON_FETCHED } from './matchActions'
+import {
+    CONNECTION_FETCHED,
+    PERSON_FETCHED,
+    HOROSCOPE_FETCHED,
+    MAKE_ACTION
+} from './matchActions'
 
 const INITIAL_STATE = {
     connections: {
@@ -14,7 +19,8 @@ const INITIAL_STATE = {
         age: 0,
         sign: '-',
         image: "https://www.biiainsurance.com/wp-content/uploads/2015/05/no-image.jpg"
-    }
+    },
+    horoscope: 'Sem horóscopo'
 }
 
 function getAge(birth) {
@@ -40,6 +46,11 @@ export default function(state = INITIAL_STATE, action) {
                     ],
                     age: getAge(action.payload.birth)
                 }
+            }
+        case HOROSCOPE_FETCHED:
+            return {
+                ...state,
+                horoscope: action.payload
             }
         default:
             return state

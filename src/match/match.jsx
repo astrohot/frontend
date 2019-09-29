@@ -4,11 +4,12 @@ import ContentHeader from '../common/template/contentHeader'
 import Content from '../common/template/content'
 import ValueBox from '../common/widget/valueBox'
 import MatchBox from '../common/widget/matchBox'
+import DescriptionBox from '../common/widget/descriptionBox'
 import Grid from '../common/layout/grid'
 import Row from '../common/layout/row'
 
 
-import { makeLike, makeDislike, getConnections, getPerson } from './matchActions'
+import { makeLike, makeDislike, getConnections, getPerson, getHoroscope } from './matchActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -23,25 +24,22 @@ class Match extends Component {
 
     handleLike() {
         // Chamar api de like
-        makeLike()
-        //this.props.getConnections()
-        this.props.getPerson()
+        this.props.makeLike(this.props.person.id)
     }
 
     handleDislike() {
         // Chamar api de dislike
-        makeDislike()
-        //this.props.getConnections()
-        this.props.getPerson()
+        this.props.makeDislike(this.props.person.id)
     }
 
     componentWillMount() {
         //this.props.getConnections()
         this.props.getPerson()
+        this.props.getHoroscope()
     }
 
     render() {
-        const { connections, person } = this.props
+        const { connections, person, horoscope } = this.props
         return (
             <div>
                 <ContentHeader title='AstroHot ' small='Conexões' />
@@ -55,7 +53,6 @@ class Match extends Component {
                             value={`${connections.unlikely_matches}`} text='Combinações (Inferno Astral)' />
                     </Row>
                     <Row>
-                        <Grid cols='3 3 3 3'></Grid>
                         <Grid cols='6 6 6 6'>                 
                             <MatchBox
                                 hellOrHeaven={person.hellOrHeaven}
@@ -66,7 +63,9 @@ class Match extends Component {
                                 like={this.handleLike}
                                 dislike={this.handleDislike}/>                            
                         </Grid>
-                        <Grid cols='3 3 3 3'></Grid>
+                        <Grid cols='6 6 6 6'>
+                            <DescriptionBox description={horoscope}/>
+                        </Grid>
                     </Row>
                 </Content>
             </div>
@@ -76,7 +75,10 @@ class Match extends Component {
 
 const mapStateToProps = state => ({
     connections: state.match.connections,
-    person: state.match.person 
+    person: state.match.person,
+    horoscope: state.match.horoscope
 })
-const mapDispatchToProps = dispatch => bindActionCreators({ makeLike, makeDislike, getConnections, getPerson }, dispatch)
+const mapDispatchToProps = dispatch => bindActionCreators({
+    makeLike, makeDislike, getConnections, getPerson, getHoroscope
+}, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Match)
