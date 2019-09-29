@@ -2,8 +2,7 @@ import consts from '../consts'
 import {
     CONNECTION_FETCHED,
     PERSON_FETCHED,
-    HOROSCOPE_FETCHED,
-    MAKE_ACTION
+    HOROSCOPE_FETCHED
 } from './matchActions'
 
 const INITIAL_STATE = {
@@ -13,7 +12,7 @@ const INITIAL_STATE = {
         likely_matches: 0
     },
     person: {
-        id: 0,
+        id: '0',
         hellOrHeaven: 'white',
         name: 'Searching...',
         age: 0,
@@ -34,16 +33,26 @@ export default function(state = INITIAL_STATE, action) {
         case CONNECTION_FETCHED:
             return { ...state, connections: action.payload }
         case PERSON_FETCHED:
+            var hellOrHeaven = state.person.hellOrHeaven,
+                image = state.person.image
+
+            if (action.payload.id !== '0') {
+                hellOrHeaven = consts.HELL_OR_HEAVEN[ 
+                    Math.floor(Math.random() * consts.HELL_OR_HEAVEN.length)
+                ]
+                image = consts.IMAGES[ 
+                    Math.floor(Math.random() * consts.IMAGES.length)
+                ]
+            }
+
+            console.log(image)
+            
             return {
                 ...state,
                 person: {
                     ...action.payload,
-                    hellOrHeaven: consts.HELL_OR_HEAVEN[ 
-                        Math.floor(Math.random() * consts.HELL_OR_HEAVEN.length)
-                    ],
-                    image: consts.IMAGES[ 
-                        Math.floor(Math.random() * consts.IMAGES.length)
-                    ],
+                    hellOrHeaven,
+                    image,
                     age: getAge(action.payload.birth)
                 }
             }

@@ -5,7 +5,6 @@ import consts from '../consts'
 export const CONNECTION_FETCHED = "CONNECTION_FETCHED"
 export const PERSON_FETCHED = "PERSON_FETCHED"
 export const HOROSCOPE_FETCHED = "HOROSCOPE_FETCHED"
-export const MAKE_ACTION = "MAKE_ACTION"
 
 export function getConnections() {
     var db = {
@@ -45,7 +44,7 @@ export function getPerson() {
                     return
                 }
 
-                if (data['getUsers'].length != 0) {
+                if (data['getUsers'].length !== 0) {
                     dispatch([
                         { type: PERSON_FETCHED, payload: data['getUsers'][0] }
                     ])
@@ -53,7 +52,7 @@ export function getPerson() {
                     dispatch([
                         { type: PERSON_FETCHED, payload: 
                             {
-                                id: 0,
+                                id: '0',
                                 name: 'Empty',
                                 birth: new Date(),
                                 sign: '-'

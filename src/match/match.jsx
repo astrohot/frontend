@@ -55,6 +55,7 @@ class Match extends Component {
                     <Row>
                         <Grid cols='6 6 6 6'>                 
                             <MatchBox
+                                id={person.id}
                                 hellOrHeaven={person.hellOrHeaven}
                                 name={person.name}
                                 age={person.age}

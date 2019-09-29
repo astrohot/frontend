@@ -1,5 +1,5 @@
 import React from 'react'
-
+import If from '../operator/if'
 
 export default props => {
     return (
@@ -14,11 +14,13 @@ export default props => {
             <div className="box-footer">
                 <div className="row">
                     <div className="col-sm-4">
-                        <div className="description-block">
-                            <a className="btn btn-app" onClick={props.dislike} >
-                                <i className="fa fa-thumbs-down"></i> Não
-                            </a>
-                        </div>
+                        <If test={props.id !== '0'}>
+                            <div className="description-block">
+                                <a className="btn btn-app" onClick={props.dislike} >
+                                    <i className="fa fa-thumbs-down"></i> Não
+                                </a>
+                            </div>
+                        </If>
                     </div>
                     <div className="col-sm-4 border-right">
                         <div className="description-block">
@@ -27,11 +29,13 @@ export default props => {
                         </div>
                     </div>
                     <div className="col-sm-4 border-right">
-                        <div className="description-block">
-                            <a className="btn btn-app" onClick={props.like}>
-                                <i className="fa fa-thumbs-up"></i> Sim
-                            </a>
-                        </div>
+                        <If test={props.id !== '0'}>
+                            <div className="description-block">
+                                <a className="btn btn-app" onClick={props.like}>
+                                    <i className="fa fa-thumbs-up"></i> Sim
+                                </a>
+                            </div>
+                        </If>
                     </div>
                 </div>
             </div>
