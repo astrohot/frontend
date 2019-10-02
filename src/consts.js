@@ -1,8 +1,8 @@
 const IMG_DB = "http://lorempixel.com/160/160/"
 
 export default {
-    API_URL: 'http://localhost:8080/graphql', // Local
-    //API_URL: 'https://api-astrohot.herokuapp.com/graphql', // Heroku
+    // API_URL: 'http://localhost:8080/graphql', // Local
+    API_URL: 'https://api-astrohot.herokuapp.com/graphql', // Heroku
     
     HELL_OR_HEAVEN: ['aqua', 'teal', 'lime', 'blue', 'gray', 'orange', 'purple', 'red'],
     IMAGES: [
