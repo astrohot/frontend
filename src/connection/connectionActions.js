@@ -1,8 +1,6 @@
-import axios from 'axios'
-import { toastr } from 'react-redux-toastr'
+// import axios from 'axios'
+// import { toastr } from 'react-redux-toastr'
 import { showTabs, selectTab } from '../common/tab/tabActions'
-
-const BASE_URL = 'http://localhost:3003/api'
 
 export function getList() {
     
