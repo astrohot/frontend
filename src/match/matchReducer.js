@@ -1,15 +1,17 @@
 import consts from '../consts'
 import {
-    CONNECTION_FETCHED,
+    LIKES_FROM_FETCHED,
+    LIKES_TO_FETCHED,
+    MATCHES_FETCHED,
     PERSON_FETCHED,
     HOROSCOPE_FETCHED
 } from './matchActions'
 
 const INITIAL_STATE = {
     connections: {
-        likes: 0,
-        unlikely_matches: 0,
-        likely_matches: 0
+        likes_from: [],
+        likes_to: [],
+        matches: []
     },
     person: {
         id: '0',
@@ -30,8 +32,12 @@ function getAge(birth) {
 
 export default function(state = INITIAL_STATE, action) {
     switch (action.type) {
-        case CONNECTION_FETCHED:
-            return { ...state, connections: action.payload }
+        case LIKES_FROM_FETCHED:
+            return { ...state, connections: { ...state.connections, likes_from: action.payload } }
+        case LIKES_TO_FETCHED:
+            return { ...state, connections: { ...state.connections, likes_to: action.payload } }
+        case MATCHES_FETCHED:
+            return { ...state, connections: { ...state.connections, matches: action.payload } }
         case PERSON_FETCHED:
             var hellOrHeaven = state.person.hellOrHeaven,
                 image = state.person.image

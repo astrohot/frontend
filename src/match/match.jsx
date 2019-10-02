@@ -9,7 +9,15 @@ import Grid from '../common/layout/grid'
 import Row from '../common/layout/row'
 
 
-import { makeLike, makeDislike, getConnections, getPerson, getHoroscope } from './matchActions'
+import {
+    makeLike,
+    makeDislike,
+    getLikesFrom,
+    getLikesTo,
+    getMatches,
+    getPerson,
+    getHoroscope
+} from './matchActions'
 import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
 
@@ -33,7 +41,9 @@ class Match extends Component {
     }
 
     componentWillMount() {
-        //this.props.getConnections()
+        this.props.getLikesFrom()
+        this.props.getLikesTo()
+        this.props.getMatches()
         this.props.getPerson()
         this.props.getHoroscope()
     }
@@ -45,12 +55,12 @@ class Match extends Component {
                 <ContentHeader title='AstroHot ' small='Conexões' />
                 <Content>
                     <Row>
-                        <ValueBox cols='12 4' color='blue' icon='heart-o'
-                            value={`${connections.likes}`} text='Curtidas' />
+                        <ValueBox cols='12 4' color='blue' icon='thumbs-o-up'
+                            value={`${connections.likes_from.length}`} text='Eu Curti' />
                         <ValueBox cols='12 4' color='green' icon='sun-o'
-                            value={`${connections.likely_matches}`} text='Combinações (Paraíso Astral)' />
-                        <ValueBox cols='12 4' color='red' icon='star-half-o'
-                            value={`${connections.unlikely_matches}`} text='Combinações (Inferno Astral)' />
+                            value={`${connections.likes_to.length}`} text='Me curtiram' />
+                        <ValueBox cols='12 4' color='red' icon='heart-o'
+                            value={`${connections.matches.length}`} text='Combinações' />
                     </Row>
                     <Row>
                         <Grid cols='6 6 6 6'>                 
@@ -80,6 +90,12 @@ const mapStateToProps = state => ({
     horoscope: state.match.horoscope
 })
 const mapDispatchToProps = dispatch => bindActionCreators({
-    makeLike, makeDislike, getConnections, getPerson, getHoroscope
+    makeLike,
+    makeDislike,
+    getLikesFrom,
+    getLikesTo,
+    getMatches,
+    getPerson,
+    getHoroscope
 }, dispatch)
 export default connect(mapStateToProps, mapDispatchToProps)(Match)

@@ -1,23 +1,74 @@
 import { toastr } from 'react-redux-toastr'
 import axios from 'axios'
 import consts from '../consts'
-
-export const CONNECTION_FETCHED = "CONNECTION_FETCHED"
+export const LIKES_FROM_FETCHED = "LIKES_FROM_FETCHED"
+export const LIKES_TO_FETCHED = "LIKES_TO_FETCHED"
+export const MATCHES_FETCHED = "MATCHES_FETCHED"
 export const PERSON_FETCHED = "PERSON_FETCHED"
 export const HOROSCOPE_FETCHED = "HOROSCOPE_FETCHED"
 
-export function getConnections() {
-    var db = {
-        type: CONNECTION_FETCHED,
-        payload: {
-            connections: {
-                likes: 1,
-                unlikely_matches: 0,
-                likely_matches: 0
-            }
-        }
+export function getLikesFrom() {
+    const query = `query { getLikesFrom }`
+
+    return dispatch => {
+        axios.post(consts.API_URL, { query }, { headers:{ 'Content-Type': 'application/json' } })
+            .then(( { data: { data, errors } } ) => {
+                if (errors) {
+                    errors.forEach(( { message } ) => toastr.error('Erro', message))
+                    return
+                }
+
+                dispatch([
+                    { type: LIKES_FROM_FETCHED, payload: data['getLikesFrom'] }
+                ])
+            })
+            .catch(({ response: { data: { errors } } }) => {
+                errors.forEach(( { message } ) => toastr.error('Erro', message))
+            })
     }
-    return db.payload.connections
+}
+
+export function getLikesTo() {
+    const query = `query { getLikesTo }`
+
+    return dispatch => {
+        axios.post(consts.API_URL, { query }, { headers:{ 'Content-Type': 'application/json' } })
+            .then(( { data: { data, errors } } ) => {
+                if (errors) {
+                    errors.forEach(( { message } ) => toastr.error('Erro', message))
+                    return
+                }
+
+                dispatch([
+                    { type: LIKES_TO_FETCHED, payload: data['getLikesTo'] }
+                ])
+            })
+            .catch(({ response: { data: { errors } } }) => {
+                errors.forEach(( { message } ) => toastr.error('Erro', message))
+            })
+    }
+}
+
+
+export function getMatches() {
+    const query = `query { getMatches }`
+
+    return dispatch => {
+        axios.post(consts.API_URL, { query }, { headers:{ 'Content-Type': 'application/json' } })
+            .then(( { data: { data, errors } } ) => {
+                if (errors) {
+                    errors.forEach(( { message } ) => toastr.error('Erro', message))
+                    return
+                }
+
+                dispatch([
+                    { type: MATCHES_FETCHED, payload: data['getMatches'] }
+                ])
+            })
+            .catch(({ response: { data: { errors } } }) => {
+                errors.forEach(( { message } ) => toastr.error('Erro', message))
+            })
+    }
 }
 
 export function getPerson() {
@@ -67,7 +118,7 @@ export function getPerson() {
     }
 }
 
-export function getHoroscope(id) {
+export function getHoroscope() {
     const query = `query { getHoroscope }`
 
     return dispatch => {
@@ -130,7 +181,9 @@ function makeAction(query, variables) {
                     errors.forEach(( { message } ) => toastr.error('Erro', message))
                     return
                 }
-                //dispatch(getConnections())
+                dispatch(getLikesFrom())
+                dispatch(getLikesTo())
+                dispatch(getMatches())
                 dispatch(getPerson())
             })
             .catch(({ response: { data: { errors } } }) => {

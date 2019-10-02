@@ -1,14 +1,10 @@
 import React, { Component } from 'react'
-import { bindActionCreators } from 'redux'
+//import { bindActionCreators } from 'redux'
 import { connect } from 'react-redux'
-
-import { getList } from './connectionActions'
 
 class ConnectionList extends Component {
 
-    componentWillMount() {
-        this.props.getList()
-    }
+    componentWillMount() { }
 
     renderRows() {
         const list = this.props.list || []
@@ -48,5 +44,5 @@ class ConnectionList extends Component {
 }
 
 const mapStateToProps = state => ({list: state.connection.list})
-const mapDispatchToProps = dispatch => bindActionCreators({ getList }, dispatch)
-export default connect(mapStateToProps, mapDispatchToProps)(ConnectionList)
+//const mapDispatchToProps = dispatch => bindActionCreators({ }, dispatch)
+export default connect(mapStateToProps)(ConnectionList)

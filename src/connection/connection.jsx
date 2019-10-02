@@ -9,7 +9,7 @@ import TabsHeader from '../common/tab/tabsHeader'
 import TabsContent from '../common/tab/tabsContent'
 import TabHeader from '../common/tab/tabHeader'
 import TabContent from '../common/tab/tabContent'
-import { init, remove } from './connectionActions'
+import { init } from './connectionActions'
 
 import List from './connectionList'
 
@@ -26,18 +26,18 @@ class Connection extends Component {
                 <Content> 
                     <Tabs> 
                         <TabsHeader> 
-                            <TabHeader label='Combinações (Todas)' icon='heart-o' target='tabLike' />
-                            <TabHeader label='Combinações (Paraíso Astral)' icon='sun-o' target='tabLikely' />
-                            <TabHeader label='Combinações (Inferno Astral)' icon='star-half-o' target='tabUnlikely' />
+                            <TabHeader label='Eu curti' icon='thumbs-o-up' target='tabLikesFrom' />
+                            <TabHeader label='Me curtiram' icon='sun-o' target='tabLikesTo' />
+                            <TabHeader label='Combinações' icon='heart-o' target='tabMatches' />
                         </TabsHeader> 
                         <TabsContent> 
-                            <TabContent id='tabLike'>
+                            <TabContent id='tabLikesFrom'>
                                 <List />
                             </TabContent>
-                            <TabContent id='tabLikely'>
+                            <TabContent id='tabLikesTo'>
                                 <List />
                             </TabContent>
-                            <TabContent id='tabUnlikely'>
+                            <TabContent id='tabMatches'>
                                 <List />
                             </TabContent>
                         </TabsContent> 
@@ -49,6 +49,6 @@ class Connection extends Component {
 }
 
 const mapDispatchToProps = dispatch => bindActionCreators({
-    init, remove
+    init
 }, dispatch)
 export default connect(null, mapDispatchToProps)(Connection)
