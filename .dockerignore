@@ -1,0 +1,16 @@
+# Ignore everything
+*
+
+# Except ...
+!package.json
+!yarn.lock
+!public/
+!src/
+
+# Unfortunately, .dockerignore does not work as .gitignore and currently 
+# there's no way to do stuffs like:
+# * # Ignore all.
+# !/**/ # Except folders.
+# !*.go # Except files ending with .go.
+# So we need to specify each folder :(
+# https://github.com/moby/moby/issues/30018
